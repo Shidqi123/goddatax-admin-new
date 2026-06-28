@@ -509,9 +509,20 @@
         <div id="view-users" class="layout-grid" style="display: none;">
             <div class="glass-card" style="grid-column: 1 / -1;">
                 <div class="card-header">Daftar Pengguna / Perangkat Aktif</div>
+                
+                <div style="background:rgba(255,42,85,0.1); border:1px solid rgba(255,42,85,0.2); padding:1.5rem; border-radius:12px; margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem;">
+                    <div style="background:var(--primary); width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <div>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin:0 0 4px 0; font-weight:600;">TOTAL USER AKTIF (SELURUH APLIKASI)</p>
+                        <h2 style="font-size:2rem; margin:0; color:var(--text-light); line-height:1;"><span class="global-active-users-count">0</span> <span style="font-size:1rem; color:var(--text-muted); font-weight:500;">Perangkat</span></h2>
+                    </div>
+                </div>
+
                 <div class="empty-state">
                     <p style="margin-bottom:1rem;">Anda dapat melihat detail perangkat masing-masing pengguna di sini.</p>
-                    <p style="color:var(--text-muted); font-size:0.9rem;">(Fitur Monitoring Perangkat sedang dalam pengembangan UI)</p>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">(Fitur list riwayat IP & HWID sedang dalam pengembangan UI)</p>
                 </div>
             </div>
         </div>
@@ -528,9 +539,22 @@
 
         <div id="view-settings" class="layout-grid" style="display: none;">
             <div class="glass-card" style="grid-column: 1 / -1;">
-                <div class="card-header">Pengaturan Sistem</div>
+                <div class="card-header">Pengaturan Sistem & Statistik Umum</div>
+                
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:2rem;">
+                    <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:1.5rem; border-radius:12px; text-align:center;">
+                        <h3 style="font-size:2.5rem; margin:0 0 0.5rem 0; color:var(--primary);" class="global-active-users-count">0</h3>
+                        <p style="color:var(--text-muted); margin:0; font-size:0.9rem; font-weight:600;">TOTAL DEVICE LOGIN</p>
+                    </div>
+                    <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:1.5rem; border-radius:12px; text-align:center;">
+                        <h3 style="font-size:2.5rem; margin:0 0 0.5rem 0; color:var(--success);" id="total-licenses-count">0</h3>
+                        <p style="color:var(--text-muted); margin:0; font-size:0.9rem; font-weight:600;">LISENSI TERCETAK</p>
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.5rem;">Batas maksimal perangkat (user) kini diatur secara dinamis per lisensi saat Anda membuat lisensi baru di menu License Manager.</p>
+                    <p style="color:var(--text-light); font-size:1rem; font-weight:600; margin-bottom:0.5rem;">Sistem Lisensi Dinamis Aktif</p>
+                    <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.5;">Batas maksimal perangkat (user) diatur secara dinamis per lisensi saat pembuatan lisensi di menu utama. Status pengguna aktif di atas ditarik langsung secara real-time dari database Supabase Anda.</p>
                 </div>
             </div>
         </div>
@@ -596,8 +620,13 @@
                 
                 if (data.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="5" class="empty-state">Belum ada lisensi yang dibuat.</td></tr>`;
+                    document.querySelectorAll('.global-active-users-count').forEach(el => el.innerText = '0');
+                    const totalLicensesEl = document.getElementById('total-licenses-count');
+                    if(totalLicensesEl) totalLicensesEl.innerText = '0';
                     return;
                 }
+
+                let totalActiveUsersInApp = 0;
 
                 data.forEach(item => {
                     let devices = [];
@@ -606,6 +635,7 @@
                     }
                     
                     const activeUsersCount = devices.length;
+                    totalActiveUsersInApp += activeUsersCount;
                     const maxUsersCount = item.max_devices || 1;
                     
                     const isUsed = activeUsersCount > 0;
@@ -639,6 +669,12 @@
                     `;
                     tbody.appendChild(tr);
                 });
+
+                // Update UI Counters
+                document.querySelectorAll('.global-active-users-count').forEach(el => el.innerText = totalActiveUsersInApp);
+                const totalLicensesEl = document.getElementById('total-licenses-count');
+                if(totalLicensesEl) totalLicensesEl.innerText = data.length;
+
             } catch (error) {
                 console.error(error);
                 tbody.innerHTML = `<tr><td colspan="5" class="empty-state" style="color:var(--danger)">Gagal memuat data. Cek koneksi atau konfigurasi Supabase.</td></tr>`;
