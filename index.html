@@ -412,6 +412,11 @@
                     <label for="customPrefix">Custom Kata Lisensi</label>
                     <input type="text" id="customPrefix" class="form-control" placeholder="Contoh: VIP123 (opsional)">
                 </div>
+                
+                <div class="form-group">
+                    <label for="maxDevices">Batas Maksimal User (Perangkat)</label>
+                    <input type="number" id="maxDevices" class="form-control" value="1" min="1">
+                </div>
 
                 <button class="btn btn-primary" onclick="generateAndSaveLicense()" id="btnGenerate">
                     <span class="btn-text">Generate & Simpan</span>
@@ -575,6 +580,7 @@
         async function generateAndSaveLicense() {
             const projectType = document.getElementById('projectType').value;
             const customPrefixInput = document.getElementById('customPrefix').value.trim().toUpperCase();
+            const maxDevicesInput = parseInt(document.getElementById('maxDevices').value) || 1;
             
             const btnText = document.querySelector('.btn-text');
             const loader = document.getElementById('generateLoader');
@@ -594,7 +600,7 @@
                 const response = await fetch(SUPABASE_URL, {
                     method: 'POST',
                     headers: headers,
-                    body: JSON.stringify({ key: finalKey, device_id: null })
+                    body: JSON.stringify({ key: finalKey, device_id: null, max_devices: maxDevicesInput })
                 });
 
                 if (!response.ok) throw new Error("Gagal menyimpan ke database");
