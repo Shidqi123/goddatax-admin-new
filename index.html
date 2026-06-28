@@ -416,10 +416,6 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 Users List
             </li>
-            <li class="nav-item" onclick="switchTab('reseller')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                Reseller Dashboard
-            </li>
             <li class="nav-item" onclick="switchTab('settings')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                 Settings
@@ -527,15 +523,6 @@
             </div>
         </div>
 
-        <div id="view-reseller" class="layout-grid" style="display: none;">
-            <div class="glass-card" style="grid-column: 1 / -1;">
-                <div class="card-header">Reseller Dashboard</div>
-                <div class="empty-state">
-                    <p style="margin-bottom:1rem;">Kelola sub-agen atau reseller Anda. Atur saldo, komisi, dan limit generate lisensi mereka.</p>
-                    <p style="color:var(--text-muted); font-size:0.9rem;">(Portal khusus Reseller sedang disiapkan)</p>
-                </div>
-            </div>
-        </div>
 
         <div id="view-settings" class="layout-grid" style="display: none;">
             <div class="glass-card" style="grid-column: 1 / -1;">
@@ -642,9 +629,15 @@
                     
                     let statusBadge = "";
                     if (isUsed) {
-                        statusBadge = `<span class="badge badge-active" style="margin-bottom:0.2rem;">Sedang Digunakan</span><br><span style="font-size:0.75rem; color:var(--text-light); font-weight:600;">${activeUsersCount} / ${maxUsersCount} Pengguna</span>`;
+                        statusBadge = `<div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
+                            <span class="badge badge-active">Sedang Digunakan</span>
+                            <span style="font-size:0.8rem; color:var(--text-light); font-weight:600; padding-left:2px;">${activeUsersCount} / ${maxUsersCount} Pengguna</span>
+                        </div>`;
                     } else {
-                        statusBadge = `<span class="badge badge-unused" style="margin-bottom:0.2rem;">Belum Dipakai</span><br><span style="font-size:0.75rem; color:var(--text-muted);">0 / ${maxUsersCount} Pengguna</span>`;
+                        statusBadge = `<div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
+                            <span class="badge badge-unused">Belum Dipakai</span>
+                            <span style="font-size:0.8rem; color:var(--text-muted); padding-left:2px;">0 / ${maxUsersCount} Pengguna</span>
+                        </div>`;
                     }
                         
                     // Detect project from prefix
