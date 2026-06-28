@@ -366,15 +366,15 @@
         </div>
         
         <ul class="nav-menu">
-            <li class="nav-item active">
+            <li class="nav-item active" onclick="switchTab('license')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                 License Manager
             </li>
-            <li class="nav-item" onclick="alert('Fitur segera hadir!')">
+            <li class="nav-item" onclick="switchTab('users')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 Users List
             </li>
-            <li class="nav-item" onclick="alert('Fitur segera hadir!')">
+            <li class="nav-item" onclick="switchTab('settings')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                 Settings
             </li>
@@ -454,6 +454,24 @@
                 </div>
             </div>
         </div>
+
+        <div id="view-users" class="layout-grid" style="display: none;">
+            <div class="glass-card" style="grid-column: 1 / -1;">
+                <div class="card-header">Daftar Pengguna / Perangkat Aktif</div>
+                <div class="empty-state">Sistem kini mendukung hingga 5 perangkat (user) per lisensi. Fitur monitoring detail sedang dalam pengembangan.</div>
+            </div>
+        </div>
+
+        <div id="view-settings" class="layout-grid" style="display: none;">
+            <div class="glass-card" style="grid-column: 1 / -1;">
+                <div class="card-header">Pengaturan Sistem</div>
+                <div class="form-group">
+                    <label>Batas Maksimal User per Lisensi</label>
+                    <input type="number" class="form-control" value="5" disabled>
+                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:0.5rem;">Fitur ini di-hardcode ke 5 perangkat pada aplikasi GodDataX Free.</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div class="toast" id="toast">
@@ -472,6 +490,15 @@
             "Content-Type": "application/json",
             "Prefer": "return=minimal"
         };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            document.querySelector('.layout-grid:not(#view-users):not(#view-settings)').style.display = tabId === 'license' ? 'grid' : 'none';
+            document.getElementById('view-users').style.display = tabId === 'users' ? 'grid' : 'none';
+            document.getElementById('view-settings').style.display = tabId === 'settings' ? 'grid' : 'none';
+        }
 
         function showToast(msg, isError = false) {
             const toast = document.getElementById('toast');
