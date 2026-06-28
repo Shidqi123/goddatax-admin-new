@@ -355,6 +355,48 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1rem 1.5rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .brand {
+                margin-bottom: 1rem;
+            }
+            .nav-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-item {
+                white-space: nowrap;
+                padding: 0.5rem 1rem;
+            }
+            .nav-item.active {
+                border-left: none;
+                border-bottom: 3px solid var(--primary);
+                background: linear-gradient(0deg, rgba(255,42,85,0.1) 0%, transparent 100%);
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 1.5rem;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .page-title h1 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -371,12 +413,16 @@
                 License Manager
             </li>
             <li class="nav-item" onclick="switchTab('users')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Mass Generator
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                Users List
+            </li>
+            <li class="nav-item" onclick="switchTab('reseller')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                Reseller Dashboard
             </li>
             <li class="nav-item" onclick="switchTab('settings')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                Analytics &amp; Stats
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                Settings
             </li>
         </ul>
     </aside>
@@ -462,20 +508,29 @@
 
         <div id="view-users" class="layout-grid" style="display: none;">
             <div class="glass-card" style="grid-column: 1 / -1;">
-                <div class="card-header">Mass Generator (Buat Lisensi Sekaligus Banyak)</div>
+                <div class="card-header">Daftar Pengguna / Perangkat Aktif</div>
                 <div class="empty-state">
-                    <p style="margin-bottom:1rem;">Fitur ini akan memungkinkan Anda membuat 10, 50, hingga 100 lisensi sekaligus dalam 1 kali klik.</p>
-                    <p style="color:var(--text-muted); font-size:0.9rem;">Sangat berguna jika Anda ingin menjual borongan ke Reseller. (Sedang dalam pengembangan)</p>
+                    <p style="margin-bottom:1rem;">Anda dapat melihat detail perangkat masing-masing pengguna di sini.</p>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">(Fitur Monitoring Perangkat sedang dalam pengembangan UI)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-reseller" class="layout-grid" style="display: none;">
+            <div class="glass-card" style="grid-column: 1 / -1;">
+                <div class="card-header">Reseller Dashboard</div>
+                <div class="empty-state">
+                    <p style="margin-bottom:1rem;">Kelola sub-agen atau reseller Anda. Atur saldo, komisi, dan limit generate lisensi mereka.</p>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">(Portal khusus Reseller sedang disiapkan)</p>
                 </div>
             </div>
         </div>
 
         <div id="view-settings" class="layout-grid" style="display: none;">
             <div class="glass-card" style="grid-column: 1 / -1;">
-                <div class="card-header">Analytics &amp; Statistik</div>
-                <div class="empty-state">
-                    <p style="margin-bottom:1rem;">Lihat berapa banyak total lisensi yang sudah laku (aktif), lisensi yang belum terpakai, dan grafik penjualan bulanan.</p>
-                    <p style="color:var(--text-muted); font-size:0.9rem;">(Sedang dalam pengembangan)</p>
+                <div class="card-header">Pengaturan Sistem</div>
+                <div class="form-group">
+                    <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.5rem;">Batas maksimal perangkat (user) kini diatur secara dinamis per lisensi saat Anda membuat lisensi baru di menu License Manager.</p>
                 </div>
             </div>
         </div>
