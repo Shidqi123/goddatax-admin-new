@@ -440,11 +440,11 @@
                     <table id="licenseTable">
                         <thead>
                             <tr>
-                                <th>License Key</th>
-                                <th>Project</th>
-                                <th>Device ID (HWID)</th>
-                                <th>Status</th>
-                                <th style="text-align: right;">Aksi</th>
+                                <th>LICENSE KEY</th>
+                                <th>PROJECT</th>
+                                <th>DEVICE ID (HWID)</th>
+                                <th>STATUS &amp; PENGGUNA</th>
+                                <th style="text-align: right;">AKSI</th>
                             </tr>
                         </thead>
                         <tbody id="licenseTableBody">
@@ -545,10 +545,22 @@
                 }
 
                 data.forEach(item => {
-                    const isUsed = item.device_id && item.device_id.trim() !== "";
-                    const statusBadge = isUsed 
-                        ? `<span class="badge badge-active">Sedang Digunakan</span>` 
-                        : `<span class="badge badge-unused">Belum Dipakai</span>`;
+                    let devices = [];
+                    if (item.device_id && item.device_id.trim() !== "" && item.device_id !== "null") {
+                        devices = item.device_id.split(",");
+                    }
+                    
+                    const activeUsersCount = devices.length;
+                    const maxUsersCount = item.max_devices || 1;
+                    
+                    const isUsed = activeUsersCount > 0;
+                    
+                    let statusBadge = "";
+                    if (isUsed) {
+                        statusBadge = `<span class="badge badge-active" style="margin-bottom:0.2rem;">Sedang Digunakan</span><br><span style="font-size:0.75rem; color:var(--text-light); font-weight:600;">${activeUsersCount} / ${maxUsersCount} Pengguna</span>`;
+                    } else {
+                        statusBadge = `<span class="badge badge-unused" style="margin-bottom:0.2rem;">Belum Dipakai</span><br><span style="font-size:0.75rem; color:var(--text-muted);">0 / ${maxUsersCount} Pengguna</span>`;
+                    }
                         
                     // Detect project from prefix
                     let project = "UNKNOWN";
