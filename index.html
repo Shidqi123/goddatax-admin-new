@@ -253,6 +253,20 @@
             border-collapse: collapse;
         }
 
+        .hwid-sub {
+            font-size: 0.75rem;
+            color: #22d3ee;
+            font-family: monospace;
+            margin-top: 5px;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        .hwid-sub.empty {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
         th, td {
             padding: 1rem;
             text-align: left;
@@ -483,7 +497,6 @@
                             <tr>
                                 <th>LICENSE KEY</th>
                                 <th>PROJECT</th>
-                                <th>DEVICE ID (HWID)</th>
                                 <th>STATUS &amp; PENGGUNA</th>
                                 <th style="text-align: right;">AKSI</th>
                             </tr>
@@ -646,11 +659,21 @@
                     else if(item.key.startsWith("JEANS")) project = "JEANS";
                     else if(item.key.startsWith("FREE")) project = "FREE";
 
+                    const hwidText = item.device_id && item.device_id.trim() !== '' && item.device_id !== 'null'
+                        ? item.device_id
+                        : null;
+
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td style="font-family:monospace; font-weight:600; letter-spacing:0.5px;">${item.key}</td>
+                        <td>
+                            <div style="font-family:monospace; font-weight:600; letter-spacing:0.5px;">${item.key}</div>
+                            <div class="hwid-sub ${hwidText ? '' : 'empty'}">
+                                ${hwidText
+                                    ? '&#128241; ' + hwidText
+                                    : '&#128279; Belum terhubung ke perangkat'}
+                            </div>
+                        </td>
                         <td><span style="color:var(--primary); font-size:0.8rem; font-weight:700;">${project}</span></td>
-                        <td style="color:var(--text-muted); font-size:0.85rem;">${item.device_id || '-'}</td>
                         <td>${statusBadge}</td>
                         <td style="text-align: right;">
                             <button class="btn btn-danger" onclick="deleteLicense('${item.key}')">
