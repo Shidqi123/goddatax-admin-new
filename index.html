@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GodDataX - Supreme Admin Dashboard</title>
+    <title>GodDataX - Admin Dashboard</title>
     <style>
         :root {
             --primary: #FF2A55;
@@ -30,7 +31,7 @@
             color: var(--text-light);
             min-height: 100vh;
             display: flex;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 15% 50%, rgba(255, 42, 85, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
             background-attachment: fixed;
@@ -104,7 +105,7 @@
         }
 
         .nav-item.active {
-            background: linear-gradient(90deg, rgba(255,42,85,0.15) 0%, transparent 100%);
+            background: linear-gradient(90deg, rgba(255, 42, 85, 0.15) 0%, transparent 100%);
             color: var(--primary);
             border-left: 3px solid var(--primary);
         }
@@ -143,7 +144,7 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             margin-bottom: 2rem;
         }
 
@@ -172,7 +173,7 @@
         .form-control {
             width: 100%;
             padding: 0.875rem 1rem;
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-light);
@@ -234,13 +235,13 @@
         }
 
         .btn-refresh {
-            background-color: rgba(255,255,255,0.05);
+            background-color: rgba(255, 255, 255, 0.05);
             color: var(--text-light);
             border: 1px solid var(--border-color);
         }
-        
+
         .btn-refresh:hover {
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         /* Table */
@@ -267,7 +268,8 @@
             font-style: italic;
         }
 
-        th, td {
+        th,
+        td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
@@ -306,7 +308,7 @@
             color: var(--success);
             border: 1px solid rgba(16, 185, 129, 0.2);
         }
-        
+
         .badge-unused {
             background-color: rgba(148, 163, 184, 0.1);
             color: var(--text-muted);
@@ -315,7 +317,7 @@
 
         .loader {
             display: none;
-            border: 3px solid rgba(255,255,255,0.1);
+            border: 3px solid rgba(255, 255, 255, 0.1);
             border-top: 3px solid var(--primary);
             border-radius: 50%;
             width: 20px;
@@ -324,8 +326,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .toast {
@@ -336,7 +343,7 @@
             border: 1px solid var(--border-color);
             padding: 1rem 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -357,7 +364,7 @@
             gap: 2rem;
             align-items: start;
         }
-        
+
         .empty-state {
             text-align: center;
             padding: 3rem 1rem;
@@ -379,40 +386,48 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border-color);
             }
+
             .brand {
                 margin-bottom: 1rem;
             }
+
             .nav-menu {
                 flex-direction: row;
                 overflow-x: auto;
                 padding-bottom: 0.5rem;
                 -webkit-overflow-scrolling: touch;
             }
+
             .nav-item {
                 white-space: nowrap;
                 padding: 0.5rem 1rem;
             }
+
             .nav-item.active {
                 border-left: none;
                 border-bottom: 3px solid var(--primary);
-                background: linear-gradient(0deg, rgba(255,42,85,0.1) 0%, transparent 100%);
+                background: linear-gradient(0deg, rgba(255, 42, 85, 0.1) 0%, transparent 100%);
             }
+
             .main-content {
                 margin-left: 0;
                 width: 100%;
                 padding: 1.5rem;
             }
+
             .header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1rem;
             }
+
             .page-title h1 {
                 font-size: 1.5rem;
             }
         }
     </style>
 </head>
+
 <body>
 
     <aside class="sidebar">
@@ -420,18 +435,36 @@
             <div class="brand-icon">G</div>
             <div class="brand-text">GodData<span>X</span></div>
         </div>
-        
+
         <ul class="nav-menu">
             <li class="nav-item active" onclick="switchTab('license')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
                 License Manager
             </li>
             <li class="nav-item" onclick="switchTab('users')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
                 Users List
             </li>
             <li class="nav-item" onclick="switchTab('settings')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
                 Settings
             </li>
         </ul>
@@ -443,7 +476,12 @@
                 <h1>License Management</h1>
             </div>
             <button class="btn btn-refresh" onclick="fetchLicenses()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
                 Refresh Data
             </button>
         </div>
@@ -452,10 +490,14 @@
             <!-- Form Card -->
             <div class="glass-card">
                 <div class="card-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
                     Buat Lisensi Baru
                 </div>
-                
+
                 <div class="form-group">
                     <label for="projectType">Pilih Aplikasi (Project)</label>
                     <select id="projectType" class="form-control">
@@ -467,7 +509,7 @@
                     <label for="customPrefix">Custom Kata Lisensi</label>
                     <input type="text" id="customPrefix" class="form-control" placeholder="Contoh: VIP123 (opsional)">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="maxDevices">Batas Maksimal User (Perangkat)</label>
                     <input type="number" id="maxDevices" class="form-control" value="1" min="1">
@@ -477,20 +519,31 @@
                     <span class="btn-text">Generate & Simpan</span>
                     <div class="loader" id="generateLoader"></div>
                 </button>
-                
-                <div id="generatedKeyDisplay" style="display:none; margin-top:1.5rem; padding:1rem; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); border-radius:8px; text-align:center;">
-                    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:0.5rem;">Lisensi Berhasil Dibuat:</p>
-                    <p id="newKeyValue" style="font-size:1.2rem; font-weight:700; color:var(--text-light); letter-spacing:1px;"></p>
+
+                <div id="generatedKeyDisplay"
+                    style="display:none; margin-top:1.5rem; padding:1rem; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); border-radius:8px; text-align:center;">
+                    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:0.5rem;">Lisensi Berhasil
+                        Dibuat:</p>
+                    <p id="newKeyValue"
+                        style="font-size:1.2rem; font-weight:700; color:var(--text-light); letter-spacing:1px;"></p>
                 </div>
             </div>
 
             <!-- Table Card -->
             <div class="glass-card">
                 <div class="card-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
                     Daftar Lisensi Aktif
                 </div>
-                
+
                 <div class="table-container">
                     <table id="licenseTable">
                         <thead>
@@ -504,7 +557,9 @@
                         <tbody id="licenseTableBody">
                             <tr>
                                 <td colspan="5" class="empty-state">
-                                    <div class="loader" style="display:inline-block; border-top-color:var(--primary); margin-bottom:1rem;"></div>
+                                    <div class="loader"
+                                        style="display:inline-block; border-top-color:var(--primary); margin-bottom:1rem;">
+                                    </div>
                                     <p>Memuat data lisensi...</p>
                                 </td>
                             </tr>
@@ -517,20 +572,33 @@
         <div id="view-users" class="layout-grid" style="display: none;">
             <div class="glass-card" style="grid-column: 1 / -1;">
                 <div class="card-header">Daftar Pengguna / Perangkat Aktif</div>
-                
-                <div style="background:rgba(255,42,85,0.1); border:1px solid rgba(255,42,85,0.2); padding:1.5rem; border-radius:12px; margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem;">
-                    <div style="background:var(--primary); width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+
+                <div
+                    style="background:rgba(255,42,85,0.1); border:1px solid rgba(255,42,85,0.2); padding:1.5rem; border-radius:12px; margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem;">
+                    <div
+                        style="background:var(--primary); width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
                     </div>
                     <div>
-                        <p style="color:var(--text-muted); font-size:0.9rem; margin:0 0 4px 0; font-weight:600;">TOTAL USER AKTIF (SELURUH APLIKASI)</p>
-                        <h2 style="font-size:2rem; margin:0; color:var(--text-light); line-height:1;"><span class="global-active-users-count">0</span> <span style="font-size:1rem; color:var(--text-muted); font-weight:500;">Perangkat</span></h2>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin:0 0 4px 0; font-weight:600;">TOTAL
+                            USER AKTIF (SELURUH APLIKASI)</p>
+                        <h2 style="font-size:2rem; margin:0; color:var(--text-light); line-height:1;"><span
+                                class="global-active-users-count">0</span> <span
+                                style="font-size:1rem; color:var(--text-muted); font-weight:500;">Perangkat</span></h2>
                     </div>
                 </div>
 
                 <div class="empty-state">
-                    <p style="margin-bottom:1rem;">Anda dapat melihat detail perangkat masing-masing pengguna di sini.</p>
-                    <p style="color:var(--text-muted); font-size:0.9rem;">(Fitur list riwayat IP & HWID sedang dalam pengembangan UI)</p>
+                    <p style="margin-bottom:1rem;">Anda dapat melihat detail perangkat masing-masing pengguna di sini.
+                    </p>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">(Fitur list riwayat IP & HWID sedang dalam
+                        pengembangan UI)</p>
                 </div>
             </div>
         </div>
@@ -539,21 +607,31 @@
         <div id="view-settings" class="layout-grid" style="display: none;">
             <div class="glass-card" style="grid-column: 1 / -1;">
                 <div class="card-header">Pengaturan Sistem & Statistik Umum</div>
-                
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:2rem;">
-                    <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:1.5rem; border-radius:12px; text-align:center;">
-                        <h3 style="font-size:2.5rem; margin:0 0 0.5rem 0; color:var(--primary);" class="global-active-users-count">0</h3>
-                        <p style="color:var(--text-muted); margin:0; font-size:0.9rem; font-weight:600;">TOTAL DEVICE LOGIN</p>
+
+                <div
+                    style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:2rem;">
+                    <div
+                        style="background:var(--card-bg); border:1px solid var(--border-color); padding:1.5rem; border-radius:12px; text-align:center;">
+                        <h3 style="font-size:2.5rem; margin:0 0 0.5rem 0; color:var(--primary);"
+                            class="global-active-users-count">0</h3>
+                        <p style="color:var(--text-muted); margin:0; font-size:0.9rem; font-weight:600;">TOTAL DEVICE
+                            LOGIN</p>
                     </div>
-                    <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:1.5rem; border-radius:12px; text-align:center;">
-                        <h3 style="font-size:2.5rem; margin:0 0 0.5rem 0; color:var(--success);" id="total-licenses-count">0</h3>
-                        <p style="color:var(--text-muted); margin:0; font-size:0.9rem; font-weight:600;">LISENSI TERCETAK</p>
+                    <div
+                        style="background:var(--card-bg); border:1px solid var(--border-color); padding:1.5rem; border-radius:12px; text-align:center;">
+                        <h3 style="font-size:2.5rem; margin:0 0 0.5rem 0; color:var(--success);"
+                            id="total-licenses-count">0</h3>
+                        <p style="color:var(--text-muted); margin:0; font-size:0.9rem; font-weight:600;">LISENSI
+                            TERCETAK</p>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <p style="color:var(--text-light); font-size:1rem; font-weight:600; margin-bottom:0.5rem;">Sistem Lisensi Dinamis Aktif</p>
-                    <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.5;">Batas maksimal perangkat (user) diatur secara dinamis per lisensi saat pembuatan lisensi di menu utama. Status pengguna aktif di atas ditarik langsung secara real-time dari database Supabase Anda.</p>
+                    <p style="color:var(--text-light); font-size:1rem; font-weight:600; margin-bottom:0.5rem;">Sistem
+                        Lisensi Dinamis Aktif</p>
+                    <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.5;">Batas maksimal perangkat
+                        (user) diatur secara dinamis per lisensi saat pembuatan lisensi di menu utama. Status pengguna
+                        aktif di atas ditarik langsung secara real-time dari database Supabase Anda.</p>
                 </div>
             </div>
         </div>
@@ -566,8 +644,8 @@
 
     <script>
         // NEW SUPABASE CONFIG
-        const SUPABASE_URL = "https://koiydllcovwxgfkqsrbo.supabase.co/rest/v1/licenses";
-        const SUPABASE_KEY = "sb_publishable_WMRBNP-557I9lctty9uL7g_ME9BvtdK";
+        const SUPABASE_URL = "https://ozttlewzilqgomgsfxgm.supabase.co/rest/v1/licenses";
+        const SUPABASE_KEY = "sb_publishable_ejiJg2KS-nJ305RVRCuw7Q_C-P_il4N";
 
         const headers = {
             "apikey": SUPABASE_KEY,
@@ -579,7 +657,7 @@
         function switchTab(tabId) {
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            
+
             document.querySelector('.layout-grid:not(#view-users):not(#view-settings)').style.display = tabId === 'license' ? 'grid' : 'none';
             document.getElementById('view-users').style.display = tabId === 'users' ? 'grid' : 'none';
             document.getElementById('view-settings').style.display = tabId === 'settings' ? 'grid' : 'none';
@@ -589,10 +667,10 @@
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toastMsg');
             const toastIcon = document.getElementById('toastIcon');
-            
+
             toastMsg.textContent = msg;
-            
-            if(isError) {
+
+            if (isError) {
                 toast.style.borderLeft = "4px solid var(--danger)";
                 toastIcon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
             } else {
@@ -609,19 +687,19 @@
         async function fetchLicenses() {
             const tbody = document.getElementById('licenseTableBody');
             tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><div class="loader" style="display:inline-block;"></div><p>Memuat ulang data...</p></td></tr>`;
-            
+
             try {
                 const response = await fetch(`${SUPABASE_URL}?select=*&order=id.desc`, { headers });
                 if (!response.ok) throw new Error("Gagal mengambil data dari Supabase");
                 const data = await response.json();
-                
+
                 tbody.innerHTML = "";
-                
+
                 if (data.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="5" class="empty-state">Belum ada lisensi yang dibuat.</td></tr>`;
                     document.querySelectorAll('.global-active-users-count').forEach(el => el.innerText = '0');
                     const totalLicensesEl = document.getElementById('total-licenses-count');
-                    if(totalLicensesEl) totalLicensesEl.innerText = '0';
+                    if (totalLicensesEl) totalLicensesEl.innerText = '0';
                     return;
                 }
 
@@ -632,13 +710,13 @@
                     if (item.device_id && item.device_id.trim() !== "" && item.device_id !== "null") {
                         devices = item.device_id.split(",");
                     }
-                    
+
                     const activeUsersCount = devices.length;
                     totalActiveUsersInApp += activeUsersCount;
                     const maxUsersCount = item.max_devices || 1;
-                    
+
                     const isUsed = activeUsersCount > 0;
-                    
+
                     let statusBadge = "";
                     if (isUsed) {
                         statusBadge = `<div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
@@ -651,13 +729,13 @@
                             <span style="font-size:0.8rem; color:var(--text-muted); padding-left:2px;">0 / ${maxUsersCount} Pengguna</span>
                         </div>`;
                     }
-                        
+
                     // Detect project from prefix
                     let project = "UNKNOWN";
-                    if(item.key.startsWith("SUPREME")) project = "SUPREME";
-                    else if(item.key.startsWith("CLOUD")) project = "CLOUD";
-                    else if(item.key.startsWith("JEANS")) project = "JEANS";
-                    else if(item.key.startsWith("FREE")) project = "FREE";
+                    if (item.key.startsWith("SUPREME")) project = "SUPREME";
+                    else if (item.key.startsWith("CLOUD")) project = "CLOUD";
+                    else if (item.key.startsWith("JEANS")) project = "JEANS";
+                    else if (item.key.startsWith("FREE")) project = "FREE";
 
                     const hwidText = item.device_id && item.device_id.trim() !== '' && item.device_id !== 'null'
                         ? item.device_id
@@ -669,8 +747,8 @@
                             <div style="font-family:monospace; font-weight:600; letter-spacing:0.5px;">${item.key}</div>
                             <div class="hwid-sub ${hwidText ? '' : 'empty'}">
                                 ${hwidText
-                                    ? 'HWID: ' + hwidText
-                                    : 'Belum terhubung ke perangkat'}
+                            ? 'HWID: ' + hwidText
+                            : 'Belum terhubung ke perangkat'}
                             </div>
                         </td>
                         <td><span style="color:var(--primary); font-size:0.8rem; font-weight:700;">${project}</span></td>
@@ -688,7 +766,7 @@
                 // Update UI Counters
                 document.querySelectorAll('.global-active-users-count').forEach(el => el.innerText = totalActiveUsersInApp);
                 const totalLicensesEl = document.getElementById('total-licenses-count');
-                if(totalLicensesEl) totalLicensesEl.innerText = data.length;
+                if (totalLicensesEl) totalLicensesEl.innerText = data.length;
 
             } catch (error) {
                 console.error(error);
@@ -701,10 +779,10 @@
             const projectType = document.getElementById('projectType').value;
             const customPrefixInput = document.getElementById('customPrefix').value.trim().toUpperCase();
             const maxDevicesInput = parseInt(document.getElementById('maxDevices').value) || 1;
-            
+
             const btnText = document.querySelector('.btn-text');
             const loader = document.getElementById('generateLoader');
-            
+
             let finalKey = "";
             if (customPrefixInput !== "") {
                 finalKey = projectType + customPrefixInput;
@@ -727,7 +805,7 @@
 
                 showToast(`Lisensi ${finalKey} berhasil dibuat!`);
                 document.getElementById('customPrefix').value = '';
-                
+
                 const disp = document.getElementById('generatedKeyDisplay');
                 disp.style.display = 'block';
                 document.getElementById('newKeyValue').textContent = finalKey;
@@ -744,7 +822,7 @@
 
         async function deleteLicense(key) {
             if (!confirm(`Yakin ingin mencabut lisensi: ${key}? User akan langsung ter-logout dari aplikasi.`)) return;
-            
+
             try {
                 const response = await fetch(`${SUPABASE_URL}?key=eq.${key}`, {
                     method: 'DELETE',
@@ -765,4 +843,5 @@
         document.addEventListener('DOMContentLoaded', fetchLicenses);
     </script>
 </body>
+
 </html>
