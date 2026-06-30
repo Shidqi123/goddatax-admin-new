@@ -656,9 +656,10 @@
         let adminSecretKey = sessionStorage.getItem("gdx_admin_secret");
 
         function getHeaders(useSecret = false) {
+            const keyToUse = useSecret && adminSecretKey ? adminSecretKey : SUPABASE_KEY;
             return {
-                "apikey": SUPABASE_KEY,
-                "Authorization": `Bearer ${useSecret && adminSecretKey ? adminSecretKey : SUPABASE_KEY}`,
+                "apikey": keyToUse,
+                "Authorization": `Bearer ${keyToUse}`,
                 "Content-Type": "application/json",
                 "Prefer": "return=minimal"
             };
