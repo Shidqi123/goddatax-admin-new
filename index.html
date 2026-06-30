@@ -7,16 +7,16 @@
     <title>GodDataX - Admin Dashboard</title>
     <style>
         :root {
-            --primary: #FF2A55;
-            --primary-dark: #cc1e40;
-            --bg-dark: #09090b;
-            --card-bg: #18181b;
+            --primary: #00e5ff;
+            --primary-dark: #00b3cc;
+            --bg-dark: #050510;
+            --card-bg: #0b0c16;
             --text-light: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #27272a;
+            --text-muted: #8b9bb4;
+            --border-color: rgba(0, 229, 255, 0.15);
             --success: #10b981;
-            --danger: #ef4444;
-            --glass-bg: rgba(24, 24, 27, 0.7);
+            --danger: #ff3366;
+            --glass-bg: rgba(11, 12, 22, 0.75);
         }
 
         * {
@@ -32,8 +32,8 @@
             min-height: 100vh;
             display: flex;
             background-image:
-                radial-gradient(circle at 15% 50%, rgba(255, 42, 85, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 15% 50%, rgba(0, 229, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(138, 43, 226, 0.08) 0%, transparent 50%);
             background-attachment: fixed;
         }
 
@@ -48,6 +48,7 @@
             position: fixed;
             height: 100vh;
             z-index: 10;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.5);
         }
 
         .brand {
@@ -60,14 +61,15 @@
         .brand-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--primary), #ff6b8b);
+            background: linear-gradient(135deg, var(--primary), #8a2be2);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
             font-size: 1.2rem;
-            box-shadow: 0 0 20px rgba(255, 42, 85, 0.3);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            color: #fff;
         }
 
         .brand-text {
@@ -102,12 +104,14 @@
         .nav-item:hover {
             background-color: rgba(255, 255, 255, 0.05);
             color: var(--text-light);
+            box-shadow: inset 2px 0 0 var(--primary);
         }
 
         .nav-item.active {
-            background: linear-gradient(90deg, rgba(255, 42, 85, 0.15) 0%, transparent 100%);
+            background: linear-gradient(90deg, rgba(0, 229, 255, 0.15) 0%, transparent 100%);
             color: var(--primary);
             border-left: 3px solid var(--primary);
+            text-shadow: 0 0 10px rgba(0,229,255,0.4);
         }
 
         /* Main Content */
@@ -210,15 +214,17 @@
         }
 
         .btn-primary {
-            background-color: var(--primary);
-            color: white;
+            background: linear-gradient(135deg, var(--primary), #0088ff);
+            color: #000;
             width: 100%;
+            text-shadow: none;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
         }
 
         .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(255, 42, 85, 0.3);
+            background: linear-gradient(135deg, var(--primary-dark), #0066cc);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.6);
         }
 
         .btn-danger {
@@ -647,12 +653,31 @@
         const SUPABASE_URL = "https://ozttlewzilqgomgsfxgm.supabase.co/rest/v1/licenses";
         const SUPABASE_KEY = "sb_publishable_ejiJg2KS-nJ305RVRCuw7Q_C-P_il4N";
 
-        const headers = {
-            "apikey": SUPABASE_KEY,
-            "Authorization": "Bearer " + SUPABASE_KEY,
-            "Content-Type": "application/json",
-            "Prefer": "return=minimal"
-        };
+        let adminSecretKey = sessionStorage.getItem("gdx_admin_secret");
+
+        function getHeaders(useSecret = false) {
+            return {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${useSecret && adminSecretKey ? adminSecretKey : SUPABASE_KEY}`,
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            };
+        }
+
+        async function promptForAdminKey() {
+            if (!adminSecretKey) {
+                const key = prompt("⚠️ PENGAMANAN PENGHAPUSAN\nMasukkan 'Supabase Service Role (Secret) Key' Anda agar bisa membuat/menghapus lisensi:");
+                if (key && key.startsWith("sb_secret_")) {
+                    adminSecretKey = key;
+                    sessionStorage.setItem("gdx_admin_secret", key);
+                    showToast("Admin Key berhasil dimuat!");
+                } else if (key) {
+                    alert("Key tidak valid! Harus berawalan 'sb_secret_'");
+                }
+            }
+        }
+
+        const headers = getHeaders(false);
 
         function switchTab(tabId) {
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -689,7 +714,7 @@
             tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><div class="loader" style="display:inline-block;"></div><p>Memuat ulang data...</p></td></tr>`;
 
             try {
-                const response = await fetch(`${SUPABASE_URL}?select=*&order=id.desc`, { headers });
+                const response = await fetch(`${SUPABASE_URL}?select=*&order=id.desc`, { headers: getHeaders(false) });
                 if (!response.ok) throw new Error("Gagal mengambil data dari Supabase");
                 const data = await response.json();
 
@@ -794,10 +819,18 @@
             btnText.style.display = 'none';
             loader.style.display = 'inline-block';
 
+            await promptForAdminKey();
+            if (!adminSecretKey) {
+                showToast("Dibutuhkan Secret Key untuk aksi ini", true);
+                btnText.style.display = 'inline';
+                loader.style.display = 'none';
+                return;
+            }
+
             try {
                 const response = await fetch(SUPABASE_URL, {
                     method: 'POST',
-                    headers: headers,
+                    headers: { ...getHeaders(true), "Prefer": "return=representation" },
                     body: JSON.stringify({ key: finalKey, device_id: null, max_devices: maxDevicesInput })
                 });
 
@@ -821,12 +854,18 @@
         }
 
         async function deleteLicense(key) {
+            await promptForAdminKey();
+            if (!adminSecretKey) {
+                showToast("Dibutuhkan Secret Key untuk aksi ini", true);
+                return;
+            }
+
             if (!confirm(`Yakin ingin mencabut lisensi: ${key}? User akan langsung ter-logout dari aplikasi.`)) return;
 
             try {
                 const response = await fetch(`${SUPABASE_URL}?key=eq.${key}`, {
                     method: 'DELETE',
-                    headers: headers
+                    headers: getHeaders(true)
                 });
 
                 if (!response.ok) throw new Error("Gagal menghapus dari database");
