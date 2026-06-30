@@ -656,10 +656,9 @@
         let adminSecretKey = sessionStorage.getItem("gdx_admin_secret");
 
         function getHeaders(useSecret = false) {
-            const keyToUse = useSecret && adminSecretKey ? adminSecretKey : SUPABASE_KEY;
             return {
-                "apikey": keyToUse,
-                "Authorization": `Bearer ${keyToUse}`,
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
                 "Content-Type": "application/json",
                 "Prefer": "return=minimal"
             };
@@ -831,7 +830,7 @@
             try {
                 const response = await fetch(SUPABASE_URL, {
                     method: 'POST',
-                    headers: { ...getHeaders(true), "Prefer": "return=representation" },
+                    headers: { ...getHeaders(), "Prefer": "return=representation" },
                     body: JSON.stringify({ key: finalKey, device_id: null, max_devices: maxDevicesInput })
                 });
 
@@ -866,7 +865,7 @@
             try {
                 const response = await fetch(`${SUPABASE_URL}?key=eq.${key}`, {
                     method: 'DELETE',
-                    headers: getHeaders(true)
+                    headers: getHeaders()
                 });
 
                 if (!response.ok) throw new Error("Gagal menghapus dari database");
