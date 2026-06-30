@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -508,6 +508,7 @@
                     <label for="projectType">Pilih Aplikasi (Project)</label>
                     <select id="projectType" class="form-control">
                         <option value="FREE">FREE</option>
+                        <option value="COMBO">COMBO — GodData-X Combo</option>
                     </select>
                 </div>
 
@@ -760,6 +761,7 @@
                     if (item.key.startsWith("SUPREME")) project = "SUPREME";
                     else if (item.key.startsWith("CLOUD")) project = "CLOUD";
                     else if (item.key.startsWith("JEANS")) project = "JEANS";
+                    else if (item.key.startsWith("COMBO")) project = "COMBO";
                     else if (item.key.startsWith("FREE")) project = "FREE";
 
                     const hwidText = item.device_id && item.device_id.trim() !== '' && item.device_id !== 'null'
